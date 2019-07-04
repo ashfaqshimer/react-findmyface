@@ -1,0 +1,13 @@
+.Footer {
+	padding: 1rem;
+	background: rgba(50, 6, 78, 0.2);
+	width: 100%;
+	margin-top: 5rem;
+	position: absolute;
+	bottom: 0;
+	color: aliceblue;
+}
+
+.Footer p {
+	margin: auto;
+}

@@ -8,10 +8,9 @@
 }
 #NavBar .navlinks .link {
 	color: aliceblue;
-	transition: transform 0.5s ease;
+	transition: color 0.5s ease;
 }
 
 #NavBar .navlinks .link:hover {
-	transform: scale(1.2);
 	color: peachpuff;
 }
