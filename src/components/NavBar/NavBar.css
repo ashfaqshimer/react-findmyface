@@ -1,0 +1,17 @@
+#NavBar {
+	background: rgba(0, 0, 0, 0.3);
+}
+
+#NavBar .navlinks {
+	display: flex;
+	justify-content: space-evenly;
+}
+#NavBar .navlinks .link {
+	color: aliceblue;
+	transition: transform 0.5s ease;
+}
+
+#NavBar .navlinks .link:hover {
+	transform: scale(1.2);
+	color: peachpuff;
+}
