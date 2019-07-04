@@ -4,6 +4,22 @@
 	box-shadow: 6px 8px 26px -15px rgb(124, 38, 124);
 }
 
+.bounding-box {
+	position: absolute;
+	box-shadow: 0 0 0 3px #149df2 inset;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	cursor: pointer;
+}
 /* .FaceDetection img {
-	max-width: 50%;
+	position: relative;
+}
+
+.FaceDetection #boundingBox {
+	z-index: 2;
+	position: absolute;
+	top: 0.2543482;
+	background: peachpuff;
+	height: 20px;
 } */

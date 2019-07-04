@@ -8,7 +8,8 @@ export default class Logo extends Component {
 				<Tilt className='Tilt' options={{ max: 35 }}>
 					<div className='Tilt-inner'>
 						{' '}
-						<i class='far fa-smile text-success' /> FindMy<span className='text-info'>Face</span>{' '}
+						<i className='far fa-smile text-success' /> FindMy
+						<span className='text-info'>Face</span>{' '}
 					</div>
 				</Tilt>
 			</div>
