@@ -4,6 +4,7 @@ import NavBar from './components/NavBar/NavBar';
 import Particles from 'react-particles-js';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import { Container } from 'react-bootstrap';
+import Rank from './components/Rank/Rank';
 
 function App() {
 	return (
@@ -23,6 +24,7 @@ function App() {
 				}}
 			/>
 			<NavBar />
+			<Rank />
 			<Container className='form-container'>
 				<ImageLinkForm />
 			</Container>

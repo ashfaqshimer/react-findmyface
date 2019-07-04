@@ -1,8 +1,8 @@
 .ImageLinkForm {
 	color: white;
-	margin: 5rem auto;
-	width: 60%;
-	background: rgba(0, 0, 0, 0.1);
+	margin: 3rem auto;
+	max-width: 100%;
+	background: rgba(131, 65, 65, 0.1);
 	padding: 1rem;
 	box-shadow: 6px 8px 26px -15px rgba(227, 136, 227, 1);
 }
