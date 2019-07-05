@@ -8,6 +8,8 @@ import Rank from './components/Rank/Rank';
 import FaceDetection from './components/FaceDetection/FaceDetection';
 import Footer from './components/Footer/Footer';
 import Clarifai from 'clarifai';
+import SignInForm from './components/SignInForm/SignInForm';
+import RegisterForm from './components/RegisterForm/RegisterForm';
 
 const API_KEY = 'af652418b23a4cb7aa3a525e3f0a266e';
 
@@ -71,11 +73,18 @@ class App extends Component {
 					className='Particles'
 					params={{
 						particles: {
-							line_linked: {
-								shadow: {
+							number: {
+								value: 50
+							},
+							size: {
+								value: 3
+							}
+						},
+						interactivity: {
+							events: {
+								onhover: {
 									enable: true,
-									color: '#3CA9D1',
-									blur: 5
+									mode: 'repulse'
 								}
 							}
 						}

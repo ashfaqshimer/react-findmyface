@@ -1,0 +1,18 @@
+#SignInForm {
+	width: 25rem;
+	margin: auto;
+	background: rgba(209, 18, 18, 0.1);
+}
+
+#SignInForm .form-link {
+	color: wheat;
+}
+
+#SignInForm .form-link:hover {
+	color: aliceblue;
+}
+
+#SignInForm .lh-copy {
+	display: flex;
+	flex-direction: column;
+}

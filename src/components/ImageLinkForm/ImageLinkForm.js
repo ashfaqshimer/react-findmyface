@@ -13,7 +13,11 @@ export default class ImageLinkForm extends Component {
 	}
 	handleSubmit(evt) {
 		evt.preventDefault();
-		this.props.handleDetect(this.state.url);
+		if (!this.state.url.trim().length === 0) {
+			this.props.handleDetect(this.state.url.trim());
+		} else {
+			alert('nothing entered');
+		}
 	}
 	render() {
 		return (
