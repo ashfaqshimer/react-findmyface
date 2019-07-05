@@ -20,14 +20,13 @@ const app = new Clarifai.App({
 class App extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { imgUrl: null, coordinates: {} };
+		this.state = { imgUrl: null, coordinates: {}, info: {} };
 		this.handleDetect = this.handleDetect.bind(this);
-		this.calculateBoundingBox = this.calculateBoundingBox.bind(this);
-		this.displayBoundingBox = this.displayBoundingBox.bind(this);
+		this.calculateData = this.calculateData.bind(this);
+		this.displayData = this.displayData.bind(this);
 	}
 
 	handleDetect(imgUrl) {
-		console.log(imgUrl);
 		this.setState({ imgUrl }, () => {
 			app.models
 				.predict(
@@ -37,33 +36,39 @@ class App extends Component {
 				)
 				.then(response => {
 					// do something with response
-					if (response.data) {
-						console.log('throw an error');
-					}
-					console.log(response);
-					this.displayBoundingBox(this.calculateBoundingBox(response));
+					this.displayData(this.calculateData(response));
 				})
 				.catch(err => {
-					console.log(err);
+					console.log('There has been an error', err);
 				});
 		});
 	}
 
-	calculateBoundingBox(response) {
+	calculateData(response) {
 		const boundingBox = response.outputs[0].data.regions[0].region_info.bounding_box;
 		const img = document.getElementById('displayImg');
 		const width = img.width;
 		const height = img.height;
-		return {
+		const boxObject = {
 			topRow: boundingBox.top_row * height,
 			leftCol: boundingBox.left_col * width,
 			bottomRow: height - boundingBox.bottom_row * height,
 			rightCol: width - boundingBox.right_col * width
 		};
+
+		const data = response.outputs[0].data.regions[0].data.face;
+		const infoObject = {
+			age: data.age_appearance.concepts[0].name,
+			gender: data.gender_appearance.concepts[0].name,
+			ethnicity: data.multicultural_appearance.concepts[0].name
+		};
+		console.log(infoObject);
+		return { boxObject: boxObject, infoObject: infoObject };
 	}
 
-	displayBoundingBox(coordinates) {
-		this.setState({ coordinates });
+	displayData(dataObjects) {
+		console.log(dataObjects);
+		this.setState({ coordinates: dataObjects.boxObject, info: dataObjects.infoObject });
 	}
 
 	render() {
@@ -95,7 +100,11 @@ class App extends Component {
 				<Container className='form-container'>
 					<ImageLinkForm handleDetect={this.handleDetect} />
 					{this.state.imgUrl ? (
-						<FaceDetection coordinates={this.state.coordinates} imgUrl={this.state.imgUrl} />
+						<FaceDetection
+							coordinates={this.state.coordinates}
+							info={this.state.info}
+							imgUrl={this.state.imgUrl}
+						/>
 					) : null}
 				</Container>
 				<Footer />

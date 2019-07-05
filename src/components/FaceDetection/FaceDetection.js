@@ -4,6 +4,7 @@ import './FaceDetection.css';
 export default class FaceDetection extends Component {
 	render() {
 		const { topRow, leftCol, bottomRow, rightCol } = this.props.coordinates;
+		const { age, gender, ethnicity } = this.props.info;
 		return (
 			<div className='FaceDetection'>
 				<div className='row'>
@@ -19,7 +20,18 @@ export default class FaceDetection extends Component {
 							style={{ top: topRow, bottom: bottomRow, left: leftCol, right: rightCol }}
 						/>
 					</div>
-					<div className='col-md-6 info'>Info displayed here</div>
+					<div className='col-md-6 info text-left'>
+						<h1>Predicted Information</h1>
+						<p>
+							Age : <span className='text-white lead'>{age}</span>
+						</p>
+						<p>
+							Gender : <span className='text-white lead'>{gender}</span>
+						</p>
+						<p>
+							Ethnicity : <span className='text-white lead'>{ethnicity}</span>
+						</p>
+					</div>
 				</div>
 			</div>
 		);
