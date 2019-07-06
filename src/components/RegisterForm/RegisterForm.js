@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './RegisterForm.css';
+import { Link } from 'react-router-dom';
 
 export default class RegisterForm extends Component {
 	render() {
@@ -62,9 +63,9 @@ export default class RegisterForm extends Component {
 					</div>
 					<div className='lh-copy mt3'>
 						<small className='text-warning'>Already have an Account? </small>
-						<a href='#0' className='f6 link dim form-link'>
+						<Link exact to='/signin' className='f6 link dim form-link'>
 							Sign In
-						</a>
+						</Link>
 					</div>
 				</form>
 			</main>
