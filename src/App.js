@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Particles from 'react-particles-js';
-import { Switch, Route } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 
 import './App.css';
 import NavBar from './components/NavBar/NavBar';
@@ -27,6 +26,13 @@ class App extends Component {
 		}
 	}
 	render() {
+		const checkSignIn = props => {
+			if (this.state.isSignedIn) {
+				return <FindMyFace {...props} />;
+			} else {
+				this.props.history.push('/signin');
+			}
+		};
 		return (
 			<div className='App'>
 				<Particles
@@ -59,7 +65,7 @@ class App extends Component {
 						path='/signin'
 						render={() => <SignInForm handleSignIn={this.handleSignIn} />}
 					/>
-					<Route exact path='/user' render={() => <FindMyFace />} />
+					<Route exact path='/user' render={checkSignIn} />
 				</Switch>
 				<Footer />
 			</div>
