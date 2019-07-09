@@ -96,7 +96,7 @@ class App extends Component {
 		return (
 			<div className='App'>
 				<Particles
-					className='Particles d-none d-md-block'
+					className='Particles'
 					params={{
 						particles: {
 							number: {
