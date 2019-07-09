@@ -1,4 +1,11 @@
 .Showcase {
 	margin-top: 2rem;
 	margin-bottom: 6rem;
+	height: 100%;
+}
+
+@media (max-width: 678px) {
+	.Showcase .carousel {
+		margin: auto;
+	}
 }

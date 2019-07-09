@@ -34,12 +34,14 @@ class App extends Component {
 			.then(response => response.json())
 			.then(data => {
 				console.log(data);
-				this.setState(
-					{ userData: { id: data.id, name: data.name, entries: data.entries }, isSignedIn: true },
-					() => {
-						this.props.history.push('/user');
-					}
-				);
+				if (data.id) {
+					this.setState(
+						{ userData: { id: data.id, name: data.name, entries: data.entries }, isSignedIn: true },
+						() => {
+							this.props.history.push('/user');
+						}
+					);
+				}
 			})
 			.catch(err => {
 				console.log(err);
@@ -60,8 +62,10 @@ class App extends Component {
 			})
 				.then(response => response.json())
 				.then(data => {
-					console.log(data);
-					this.props.history.push('/signin');
+					if (data.id) {
+						console.log(data);
+						this.props.history.push('/signin');
+					}
 				})
 				.catch(err => {
 					console.log(err);
@@ -92,7 +96,7 @@ class App extends Component {
 		return (
 			<div className='App'>
 				<Particles
-					className='Particles'
+					className='Particles d-none d-md-block'
 					params={{
 						particles: {
 							number: {
@@ -113,6 +117,7 @@ class App extends Component {
 					}}
 				/>
 				<NavBar isSignedIn={this.state.isSignedIn} handleSignOut={this.handleSignOut} />
+
 				<Switch>
 					<Route exact path='/' render={() => <Showcase />} />
 					<Route
@@ -127,6 +132,7 @@ class App extends Component {
 					/>
 					<Route exact path='/user' render={checkSignIn} />
 				</Switch>
+
 				<Footer />
 			</div>
 		);

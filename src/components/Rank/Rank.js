@@ -9,7 +9,7 @@ export default class Rank extends Component {
 	render() {
 		return (
 			<div className='text-white mt-5'>
-				<h1>
+				<h1 className='display-3'>
 					<span className='name-span text-success'>{this.props.name}</span>, you have made{' '}
 					{this.props.entries} detects!
 				</h1>
