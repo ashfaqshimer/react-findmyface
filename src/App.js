@@ -26,7 +26,7 @@ class App extends Component {
 
 	handleSignIn(credentials) {
 		const { email, password } = credentials;
-		fetch('https://git.heroku.com/rocky-gorge-58879/signin', {
+		fetch('https://rocky-gorge-58879.herokuapp.com/signin', {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ email, password })
@@ -55,7 +55,7 @@ class App extends Component {
 	handleRegister(registrationData) {
 		const { name, email, password } = registrationData;
 		this.setState({ registrationData }, () => {
-			fetch('https://git.heroku.com/rocky-gorge-58879/register', {
+			fetch('https://rocky-gorge-58879.herokuapp.com/register', {
 				method: 'post',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ email, password, name })
