@@ -16,7 +16,11 @@ const app = new Clarifai.App({
 class App extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { imgUrl: null, coordinates: {}, info: {} };
+		this.state = {
+			imgUrl: null,
+			coordinates: {},
+			info: {}
+		};
 		this.handleDetect = this.handleDetect.bind(this);
 		this.calculateData = this.calculateData.bind(this);
 		this.displayData = this.displayData.bind(this);
@@ -32,6 +36,18 @@ class App extends Component {
 				)
 				.then(response => {
 					// do something with response
+					if (response) {
+						fetch('http://localhost:3000/image', {
+							method: 'put',
+							headers: { 'Content-Type': 'application/json' },
+							body: JSON.stringify({ id: this.props.id })
+						})
+							.then(response => response.json())
+							.then(count => {
+								console.log(count);
+								this.props.updateEntries(count);
+							});
+					}
 					this.displayData(this.calculateData(response));
 				})
 				.catch(err => {
@@ -68,7 +84,7 @@ class App extends Component {
 	render() {
 		return (
 			<div className='App'>
-				<Rank />
+				<Rank name={this.props.name} entries={this.props.entries} />
 				<Container className='form-container'>
 					<ImageLinkForm handleDetect={this.handleDetect} />
 					{this.state.imgUrl ? (

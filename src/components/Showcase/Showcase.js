@@ -13,54 +13,54 @@ export default class Showcase extends Component {
 				<div className='row'>
 					<div
 						id='carouselExampleIndicators'
-						class='carousel slide col col-md-8 justify-content-center align-items center'
+						className='carousel slide col col-md-8 justify-content-center align-items center'
 						data-ride='carousel'
 					>
-						<ol class='carousel-indicators'>
-							<li data-target='#carouselExampleIndicators' data-slide-to='0' class='active' />
+						<ol className='carousel-indicators'>
+							<li data-target='#carouselExampleIndicators' data-slide-to='0' className='active' />
 							<li data-target='#carouselExampleIndicators' data-slide-to='1' />
 							<li data-target='#carouselExampleIndicators' data-slide-to='2' />
 						</ol>
-						<div class='carousel-inner'>
-							<div class='carousel-item active'>
-								<img class='d-block w-100 img-fluid' src={faceImg} alt='...' />
-								<div class='carousel-caption '>
+						<div className='carousel-inner'>
+							<div className='carousel-item active'>
+								<img className='d-block w-100 img-fluid' src={faceImg} alt='...' />
+								<div className='carousel-caption '>
 									<h5>Face Detection</h5>
 									<p>Complex algorithm to allow detection of faces in any image</p>
 								</div>
 							</div>
-							<div class='carousel-item'>
-								<img class='d-block w-100 img-fluid' src={demographicsImg} alt='...' />
-								<div class='carousel-caption '>
+							<div className='carousel-item'>
+								<img className='d-block w-100 img-fluid' src={demographicsImg} alt='...' />
+								<div className='carousel-caption '>
 									<h5>Detailed Demographics</h5>
 									<p>Get predictions on the gender, ethnicity and age</p>
 								</div>
 							</div>
-							<div class='carousel-item'>
-								<img class='d-block w-100' src={freeImg} alt='...' />
-								<div class='carousel-caption '>
+							<div className='carousel-item'>
+								<img className='d-block w-100' src={freeImg} alt='...' />
+								<div className='carousel-caption '>
 									<h5>Completely Free</h5>
 									<p>The service is completely free. Register using your email address</p>
 								</div>
 							</div>
 						</div>
 						<a
-							class='carousel-control-prev'
+							className='carousel-control-prev'
 							href='#carouselExampleIndicators'
 							role='button'
 							data-slide='prev'
 						>
-							<span class='carousel-control-prev-icon' aria-hidden='true' />
-							<span class='sr-only'>Previous</span>
+							<span className='carousel-control-prev-icon' aria-hidden='true' />
+							<span className='sr-only'>Previous</span>
 						</a>
 						<a
-							class='carousel-control-next'
+							className='carousel-control-next'
 							href='#carouselExampleIndicators'
 							role='button'
 							data-slide='next'
 						>
-							<span class='carousel-control-next-icon' aria-hidden='true' />
-							<span class='sr-only'>Next</span>
+							<span className='carousel-control-next-icon' aria-hidden='true' />
+							<span className='sr-only'>Next</span>
 						</a>
 					</div>
 				</div>

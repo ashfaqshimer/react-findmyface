@@ -23,13 +23,13 @@ export default class FaceDetection extends Component {
 					<div className='col-md-6 info text-left'>
 						<h1>Predicted Information</h1>
 						<p>
-							Age : <span className='text-white lead'>{age}</span>
+							Age : <span className='text-white lead text-uppercase'>{age}</span>
 						</p>
 						<p>
-							Gender : <span className='text-white lead'>{gender}</span>
+							Gender : <span className='text-white lead text-uppercase'>{gender}</span>
 						</p>
 						<p>
-							Ethnicity : <span className='text-white lead'>{ethnicity}</span>
+							Ethnicity : <span className='text-white lead text-uppercase'>{ethnicity}</span>
 						</p>
 					</div>
 				</div>

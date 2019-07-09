@@ -12,7 +12,7 @@ export default class NavBar extends Component {
 	}
 
 	handleSignOut(evt) {
-		this.props.handleSignOut(false);
+		this.props.handleSignOut();
 	}
 
 	render() {
@@ -44,7 +44,11 @@ export default class NavBar extends Component {
 
 		return (
 			<Navbar id='NavBar' variant='dark' expand='md'>
-				<NavLink className='logo navbar-brand text-white border border-success p-2' exact to='/'>
+				<NavLink
+					className='logo navbar-brand text-white border border-success p-2'
+					exact
+					to={this.props.isSignedIn ? '/user' : '/'}
+				>
 					<Logo />
 				</NavLink>
 

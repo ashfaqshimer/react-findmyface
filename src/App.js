@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Particles from 'react-particles-js';
-import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 
 import './App.css';
 import NavBar from './components/NavBar/NavBar';
@@ -14,21 +14,77 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isSignedIn: false
+			isSignedIn: false,
+			registrationData: {},
+			userData: { id: null, name: null, entries: null }
 		};
 		this.handleSignIn = this.handleSignIn.bind(this);
+		this.handleSignOut = this.handleSignOut.bind(this);
+		this.handleRegister = this.handleRegister.bind(this);
+		this.handleUpdateEntries = this.handleUpdateEntries.bind(this);
 	}
-	handleSignIn(signedIn) {
-		if (signedIn) {
-			this.setState({ isSignedIn: true }, () => this.props.history.push('/user'));
-		} else {
-			this.setState({ isSignedIn: false }, () => this.props.history.push('/'));
-		}
+
+	handleSignIn(credentials) {
+		const { email, password } = credentials;
+		fetch('http://localhost:3000/signin', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ email, password })
+		})
+			.then(response => response.json())
+			.then(data => {
+				console.log(data);
+				this.setState(
+					{ userData: { id: data.id, name: data.name, entries: data.entries }, isSignedIn: true },
+					() => {
+						this.props.history.push('/user');
+					}
+				);
+			})
+			.catch(err => {
+				console.log(err);
+			});
 	}
+
+	handleSignOut() {
+		this.setState({ userData: { id: null, name: null, entries: null }, isSignedIn: false });
+	}
+
+	handleRegister(registrationData) {
+		const { name, email, password } = registrationData;
+		this.setState({ registrationData }, () => {
+			fetch('http://localhost:3000/register', {
+				method: 'post',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ email, password, name })
+			})
+				.then(response => response.json())
+				.then(data => {
+					console.log(data);
+					this.props.history.push('/signin');
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		});
+	}
+
+	handleUpdateEntries(count) {
+		this.setState({ userData: { ...this.state.userData, entries: count } });
+	}
+
 	render() {
 		const checkSignIn = props => {
 			if (this.state.isSignedIn) {
-				return <FindMyFace {...props} />;
+				return (
+					<FindMyFace
+						{...props}
+						id={this.state.userData.id}
+						name={this.state.userData.name}
+						entries={this.state.userData.entries}
+						updateEntries={this.handleUpdateEntries}
+					/>
+				);
 			} else {
 				this.props.history.push('/signin');
 			}
@@ -56,10 +112,14 @@ class App extends Component {
 						}
 					}}
 				/>
-				<NavBar isSignedIn={this.state.isSignedIn} handleSignOut={this.handleSignIn} />
+				<NavBar isSignedIn={this.state.isSignedIn} handleSignOut={this.handleSignOut} />
 				<Switch>
 					<Route exact path='/' render={() => <Showcase />} />
-					<Route exact path='/register' render={() => <RegisterForm />} />
+					<Route
+						exact
+						path='/register'
+						render={() => <RegisterForm handleRegister={this.handleRegister} />}
+					/>
 					<Route
 						exact
 						path='/signin'

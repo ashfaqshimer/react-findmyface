@@ -5,12 +5,21 @@ import './SignInForm.css';
 export default class SignInForm extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			email: '',
+			password: ''
+		};
+		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+
+	handleChange(evt) {
+		this.setState({ [evt.target.name]: evt.target.value });
 	}
 
 	handleSubmit(evt) {
 		evt.preventDefault();
-		this.props.handleSignIn(true);
+		this.props.handleSignIn(this.state);
 	}
 
 	render() {
@@ -26,8 +35,11 @@ export default class SignInForm extends Component {
 							<input
 								className='pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
 								type='email'
-								name='email-address'
+								name='email'
 								id='email-address'
+								required
+								value={this.state.email}
+								onChange={this.handleChange}
 							/>
 						</div>
 						<div className='mv3'>
@@ -39,6 +51,9 @@ export default class SignInForm extends Component {
 								type='password'
 								name='password'
 								id='password'
+								required
+								value={this.state.password}
+								onChange={this.handleChange}
 							/>
 						</div>
 					</fieldset>
