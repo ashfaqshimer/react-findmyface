@@ -37,7 +37,7 @@ class App extends Component {
 				.then(response => {
 					// do something with response
 					if (response) {
-						fetch('http://localhost:3000/image', {
+						fetch('https://git.heroku.com/rocky-gorge-58879/image', {
 							method: 'put',
 							headers: { 'Content-Type': 'application/json' },
 							body: JSON.stringify({ id: this.props.id })
