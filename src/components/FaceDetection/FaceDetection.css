@@ -4,6 +4,10 @@
 	box-shadow: 6px 8px 26px -15px rgb(124, 38, 124);
 }
 
+.img-display {
+	position: relative;
+}
+
 .bounding-box {
 	position: absolute;
 	box-shadow: 0 0 0 3px #149df2 inset;

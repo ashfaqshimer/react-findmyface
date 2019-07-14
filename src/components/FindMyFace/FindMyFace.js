@@ -19,7 +19,8 @@ class App extends Component {
 		this.state = {
 			imgUrl: null,
 			coordinates: {},
-			info: {}
+			info: {},
+			faces: []
 		};
 		this.handleDetect = this.handleDetect.bind(this);
 		this.calculateData = this.calculateData.bind(this);
@@ -44,7 +45,6 @@ class App extends Component {
 						})
 							.then(response => response.json())
 							.then(count => {
-								console.log(count);
 								this.props.updateEntries(count);
 							});
 					}
@@ -57,31 +57,35 @@ class App extends Component {
 	}
 
 	calculateData(response) {
-		const boundingBox = response.outputs[0].data.regions[0].region_info.bounding_box;
-		const img = document.getElementById('displayImg');
-		const width = img.width;
-		const height = img.height;
-		const boxObject = {
-			topRow: boundingBox.top_row * height,
-			leftCol: boundingBox.left_col * width,
-			bottomRow: height - boundingBox.bottom_row * height,
-			rightCol: width - boundingBox.right_col * width
-		};
+		return response.outputs[0].data.regions.map(face => {
+			const boundingBox = face.region_info.bounding_box;
+			const img = document.getElementById('displayImg');
+			const width = img.width;
+			const height = img.height;
+			const boxObject = {
+				topRow: boundingBox.top_row * height,
+				leftCol: boundingBox.left_col * width,
+				bottomRow: height - boundingBox.bottom_row * height,
+				rightCol: width - boundingBox.right_col * width
+			};
 
-		const data = response.outputs[0].data.regions[0].data.face;
-		const infoObject = {
-			age: data.age_appearance.concepts[0].name,
-			gender: data.gender_appearance.concepts[0].name,
-			ethnicity: data.multicultural_appearance.concepts[0].name
-		};
-		return { boxObject: boxObject, infoObject: infoObject };
+			const data = face.data.face;
+			const infoObject = {
+				age: data.age_appearance.concepts[0].name,
+				gender: data.gender_appearance.concepts[0].name,
+				ethnicity: data.multicultural_appearance.concepts[0].name
+			};
+			return { boxObject: boxObject, infoObject: infoObject };
+		});
 	}
 
-	displayData(dataObjects) {
-		this.setState({ coordinates: dataObjects.boxObject, info: dataObjects.infoObject });
+	displayData(faces) {
+		// console.log(dataObjects);
+		this.setState({ faces });
 	}
 
 	render() {
+		const { imgUrl, faces } = this.state;
 		return (
 			<div className='App'>
 				<Rank name={this.props.name} entries={this.props.entries} />
@@ -89,9 +93,10 @@ class App extends Component {
 					<ImageLinkForm handleDetect={this.handleDetect} />
 					{this.state.imgUrl ? (
 						<FaceDetection
-							coordinates={this.state.coordinates}
-							info={this.state.info}
-							imgUrl={this.state.imgUrl}
+							// coordinates={this.state.coordinates}
+							// info={this.state.info}
+							faces={faces}
+							imgUrl={imgUrl}
 						/>
 					) : null}
 				</Container>

@@ -9,6 +9,8 @@
 #NavBar .navlinks .link {
 	color: aliceblue;
 	transition: color 0.5s ease;
+	background: none;
+	border: none;
 	outline: none;
 }
 

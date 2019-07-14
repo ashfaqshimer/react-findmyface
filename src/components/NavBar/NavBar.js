@@ -20,13 +20,9 @@ export default class NavBar extends Component {
 		if (this.props.isSignedIn) {
 			navLinks = (
 				<Nav className='navlinks ml-auto'>
-					<NavLink
-						activeClassName='active'
-						className='mx-3 nav-link link'
-						onClick={this.handleSignOut}
-					>
+					<button className='mx-3 nav-link link' onClick={this.handleSignOut}>
 						Sign Out
-					</NavLink>
+					</button>
 				</Nav>
 			);
 		} else {
