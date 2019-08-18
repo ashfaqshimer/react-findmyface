@@ -4,15 +4,21 @@ import { NavLink } from 'react-router-dom';
 
 import './NavBar.css';
 import Logo from '../Logo/Logo';
+import ProfileMenu from '../Profile/ProfileMenu/ProfileMenu';
 
 export default class NavBar extends Component {
 	constructor(props) {
 		super(props);
 		this.handleSignOut = this.handleSignOut.bind(this);
+		this.toggleModal = this.toggleModal.bind(this);
 	}
 
-	handleSignOut(evt) {
+	handleSignOut() {
 		this.props.handleSignOut();
+	}
+
+	toggleModal() {
+		this.props.toggleModal();
 	}
 
 	render() {
@@ -20,18 +26,30 @@ export default class NavBar extends Component {
 		if (this.props.isSignedIn) {
 			navLinks = (
 				<Nav className='navlinks ml-auto'>
-					<button className='mx-3 nav-link link' onClick={this.handleSignOut}>
-						Sign Out
-					</button>
+					<ProfileMenu
+						signOut={this.handleSignOut}
+						name={this.props.name}
+						toggleModal={this.toggleModal}
+					/>
 				</Nav>
 			);
 		} else {
 			navLinks = (
 				<Nav className='navlinks ml-auto'>
-					<NavLink activeClassName='active' className='mx-3 nav-link link' exact to='/register'>
+					<NavLink
+						activeClassName='active'
+						className='mx-3 nav-link link'
+						exact
+						to='/register'
+					>
 						Register
 					</NavLink>
-					<NavLink activeClassName='active' className='mx-3 nav-link link' exact to='/signin'>
+					<NavLink
+						activeClassName='active'
+						className='mx-3 nav-link link'
+						exact
+						to='/signin'
+					>
 						Sign In
 					</NavLink>
 				</Nav>

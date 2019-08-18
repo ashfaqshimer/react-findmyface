@@ -5,7 +5,7 @@ export default class Footer extends Component {
 	render() {
 		return (
 			<footer className='Footer'>
-				<p className='text-primary'>Copyright©, 2019, Ashfaq Shimer </p>
+				<p className='text-muted'>Copyright©, 2019, Ashfaq Shimer </p>
 			</footer>
 		);
 	}

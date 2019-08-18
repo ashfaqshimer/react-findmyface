@@ -14,36 +14,41 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isSignedIn: false,
-			registrationData: {},
-			userData: { id: null, name: null, entries: null }
+			isSignedIn       : false,
+			isProfileOpen    : false,
+			registrationData : {},
+			userData         : { id: null, name: null, entries: null }
 		};
 		this.handleSignIn = this.handleSignIn.bind(this);
 		this.handleSignOut = this.handleSignOut.bind(this);
 		this.handleRegister = this.handleRegister.bind(this);
 		this.handleUpdateEntries = this.handleUpdateEntries.bind(this);
+		this.toggleModal = this.toggleModal.bind(this);
 	}
 
 	handleSignIn(credentials) {
 		const { email, password } = credentials;
 		fetch('https://rocky-gorge-58879.herokuapp.com/signin', {
-			method: 'post',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ email, password })
+			method  : 'post',
+			headers : { 'Content-Type': 'application/json' },
+			body    : JSON.stringify({ email, password })
 		})
-			.then(response => response.json())
-			.then(data => {
+			.then((response) => response.json())
+			.then((data) => {
 				console.log(data);
 				if (data.id) {
 					this.setState(
-						{ userData: { id: data.id, name: data.name, entries: data.entries }, isSignedIn: true },
+						{
+							userData   : { id: data.id, name: data.name, entries: data.entries },
+							isSignedIn : true
+						},
 						() => {
 							this.props.history.push('/user');
 						}
 					);
 				}
 			})
-			.catch(err => {
+			.catch((err) => {
 				console.log(err);
 			});
 	}
@@ -56,18 +61,18 @@ class App extends Component {
 		const { name, email, password } = registrationData;
 		this.setState({ registrationData }, () => {
 			fetch('https://rocky-gorge-58879.herokuapp.com/register', {
-				method: 'post',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ email, password, name })
+				method  : 'post',
+				headers : { 'Content-Type': 'application/json' },
+				body    : JSON.stringify({ email, password, name })
 			})
-				.then(response => response.json())
-				.then(data => {
+				.then((response) => response.json())
+				.then((data) => {
 					if (data.id) {
 						console.log(data);
 						this.props.history.push('/signin');
 					}
 				})
-				.catch(err => {
+				.catch((err) => {
 					console.log(err);
 				});
 		});
@@ -77,8 +82,15 @@ class App extends Component {
 		this.setState({ userData: { ...this.state.userData, entries: count } });
 	}
 
+	toggleModal() {
+		this.setState((prevState) => ({
+			...prevState,
+			isProfileOpen : !prevState.isProfileOpen
+		}));
+	}
+
 	render() {
-		const checkSignIn = props => {
+		const checkSignIn = (props) => {
 			if (this.state.isSignedIn) {
 				return (
 					<FindMyFace
@@ -87,6 +99,8 @@ class App extends Component {
 						name={this.state.userData.name}
 						entries={this.state.userData.entries}
 						updateEntries={this.handleUpdateEntries}
+						isProfileOpen={this.state.isProfileOpen}
+						toggleModal={this.toggleModal}
 					/>
 				);
 			} else {
@@ -98,26 +112,30 @@ class App extends Component {
 				<Particles
 					className='Particles'
 					params={{
-						particles: {
-							number: {
-								value: 50
+						particles     : {
+							number : {
+								value : 50
 							},
-							size: {
-								value: 3
+							size   : {
+								value : 3
 							}
 						},
-						interactivity: {
-							events: {
-								onhover: {
-									enable: true,
-									mode: 'repulse'
+						interactivity : {
+							events : {
+								onhover : {
+									enable : true,
+									mode   : 'repulse'
 								}
 							}
 						}
 					}}
 				/>
-				<NavBar isSignedIn={this.state.isSignedIn} handleSignOut={this.handleSignOut} />
-
+				<NavBar
+					isSignedIn={this.state.isSignedIn}
+					handleSignOut={this.handleSignOut}
+					name={this.state.userData.name}
+					toggleModal={this.toggleModal}
+				/>
 				<Switch>
 					<Route exact path='/' render={() => <Showcase />} />
 					<Route

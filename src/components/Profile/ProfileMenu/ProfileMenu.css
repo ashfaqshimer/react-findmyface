@@ -1,0 +1,8 @@
+.ProfileMenu:hover {
+	cursor: pointer;
+}
+
+.profile-menu {
+	margin-top: 20px;
+	background: rgba(255, 255, 255, 0.5);
+}
